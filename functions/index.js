@@ -1,8 +1,20 @@
 const functions = require("firebase-functions");
+const firebase = require("firebase-admin");
 const express = require("express");
 const axios = require("axios");
-
 const app = express();
+
+// Initialize firebase application
+const firebaseApp = firebase.initializeApp(functions.config().firebase);
+
+/**
+ * Get data from test table from realtime database of firebase
+ */
+const getTestData = () => {
+  const ref = firebaseApp.database().ref("test");
+  return ref.once("value").then((snap) => snap.val());
+};
+
 app.get("/title", (req, res) => {
   res.send(`${Date.now()}`);
 });
@@ -20,6 +32,16 @@ app.get("/title-cache", (req, res) => {
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
+
+app.get("/test", (req, res) => {
+  getTestData()
+    .then((data) => {
+      return res.json(data);
+    })
+    .catch((a) => {
+      res.json({ message: "Some error" });
+    });
+});
 
 app.get("/weather", async (req, res) => {
   const { api } = functions.config().weather;
