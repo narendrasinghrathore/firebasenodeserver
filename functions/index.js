@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const express = require("express");
+const axios = require("axios");
 
 const app = express();
 app.get("/title", (req, res) => {
@@ -19,4 +20,27 @@ app.get("/title-cache", (req, res) => {
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
+
+app.get("/weather", async (req, res) => {
+  const { api } = functions.config().weather;
+  const cityName = req.query.name;
+  if (cityName) {
+    const url = `http://api.openweathermap.org/data/2.5/weather`;
+    const response = await axios.get(url, {
+      params: {
+        q: cityName,
+        units: "metric",
+        appid: api,
+      },
+    });
+
+    const { data } = await response;
+    res.send(data);
+  } else {
+    res.send({
+      message: "Please provide city name",
+    });
+  }
+});
+
 exports.app = functions.https.onRequest(app);
