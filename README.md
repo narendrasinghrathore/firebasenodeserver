@@ -54,3 +54,5 @@ const firebaseApp = firebase.initializeApp(functions.config().firebase);
 ```
 
 Just make sure, when running server it's hosted on firebase or else you need the config copied to index or any file and used from there.
+
+    For more info on firebase config, please refer here https://firebase.google.com/docs/functions/config-env
