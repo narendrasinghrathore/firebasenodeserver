@@ -13,3 +13,11 @@
 
     To deploy changes
      - firebase deploy
+
+
+     /**
+   * Using public, we can cache the content to Server, if we use private we can only store on user browser.
+   * max-age: How long we can cache the content on user browser.
+   * s-maxage: How long we can cache the content on server.
+   *
+   */
