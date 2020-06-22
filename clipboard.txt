@@ -1,0 +1,15 @@
+    // "rewrites": [
+    //   {
+    //     "source": "**",
+    //     "destination": "/index.html"
+    //   }
+    // ]
+
+    To update new changes
+
+    Windows commands: Location emulation
+
+    firebase serve --only "functions,hosting"
+
+    To deploy changes
+     - firebase deploy
